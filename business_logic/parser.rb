@@ -1,8 +1,9 @@
 require 'json'
+require_relative "./client"
 
 module Twitter
   class Parser
-    def initialize(twitter_client)
+    def initialize(twitter_client = Client.new)
       @twitter_client = twitter_client
     end
 
