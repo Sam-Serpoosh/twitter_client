@@ -11,9 +11,18 @@ module Twitter
       path = "1.1/statuses/user_timeline.json"
       query = Twitter::Network.create_query(
         "screen_name" => Twitter::Network::SCREEN_NAME,
-        "count" => 30)
+        "count" => 20,
+        "include_rts" => 1)
       execute_request(path, query)
     end
+
+    def self.mentions_timeline
+      path = "1.1/statuses/mentions_timeline.json"
+      query = Twitter::Network.create_query("count" => 20)
+      execute_request(path, query)
+    end
+
+    private 
 
     def self.execute_request(path, query = nil)
       address = Twitter::Network.create_address(path, query)
