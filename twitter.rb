@@ -4,6 +4,7 @@ require_relative "./settings"
 
 module Twitter
   module Network
+    SCREEN_NAME = Settings::SCREEN_NAME
     CONSUMER_KEY = OAuth::Consumer.new(Settings::CONSUMER_KEY, 
                                        Settings::CONSUMER_SECRET)
     ACCESS_TOKEN = OAuth::Token.new(Settings::ACCESS_TOKEN, 
