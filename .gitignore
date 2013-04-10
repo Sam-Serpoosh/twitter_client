@@ -1,2 +1,3 @@
 *.swp
 settings.rb
+business_logic/*.data
