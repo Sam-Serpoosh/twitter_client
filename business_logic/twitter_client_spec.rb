@@ -15,7 +15,8 @@ describe Twitter::Client do
   end
 
   def read_data
-    File.open("json_data.data", "r") do |f|
+    data_path = File.expand_path(File.dirname(__FILE__) + "/json_data.data")
+    File.open(data_path, "r") do |f|
       f.read
     end
   end
