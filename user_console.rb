@@ -10,12 +10,17 @@ module Twitter
 
     def latest_timeline(count_limit = 20)
       timeline = Http.user_timeline(count_limit).body
-      tweets = @parser.get_tweets(timeline)
+      @parser.get_tweets(timeline)
     end
 
     def latest_mentions(count_limit = 20)
       mentions = Http.mentions_timeline(count_limit).body
-      tweets = @parser.get_tweets(mentions)
+      @parser.get_tweets(mentions)
+    end
+
+    def latest_retweets(count_limit = 20)
+      retweets = Http.retweets(count_limit).body
+      @parser.get_tweets(retweets)
     end
   end
 end
@@ -35,4 +40,4 @@ module Twitter
 end
 
 console = Twitter::UserConsole.new
-Twitter::Format.timeline(console.latest_mentions)
+Twitter::Format.timeline(console.latest_retweets)

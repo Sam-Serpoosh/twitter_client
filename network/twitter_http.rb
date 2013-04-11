@@ -22,6 +22,12 @@ module Twitter
       execute_request(path, query)
     end
 
+    def self.retweets(count_limit)
+      path = "1.1/statuses/retweets_of_me.json"
+      query = Twitter::Network.create_query("count" => count_limit)
+      execute_request(path, query)
+    end
+
     private 
 
     def self.execute_request(path, query = nil)
