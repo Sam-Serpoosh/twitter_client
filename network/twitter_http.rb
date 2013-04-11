@@ -7,18 +7,18 @@ module Twitter
       execute_request(path)
     end
 
-    def self.user_timeline
+    def self.user_timeline(count_limit)
       path = "1.1/statuses/user_timeline.json"
       query = Twitter::Network.create_query(
         "screen_name" => Twitter::Network::SCREEN_NAME,
-        "count" => 20,
+        "count" => count_limit,
         "include_rts" => 1)
       execute_request(path, query)
     end
 
-    def self.mentions_timeline
+    def self.mentions_timeline(count_limit)
       path = "1.1/statuses/mentions_timeline.json"
-      query = Twitter::Network.create_query("count" => 20)
+      query = Twitter::Network.create_query("count" => count_limit)
       execute_request(path, query)
     end
 

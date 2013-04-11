@@ -4,9 +4,9 @@ require_relative "./business_logic/parser"
 
 module Twitter
   class UserConsole
-    def latest_timeline
+    def latest_timeline(count_limit = 20)
       parser = Parser.new
-      timeline = Http.user_timeline.body
+      timeline = Http.user_timeline(count_limit).body
       tweets = parser.get_tweets(timeline)
     end
   end
