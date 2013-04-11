@@ -1,3 +1,5 @@
+require_relative "./tweet_formatter"
+
 module Twitter
   class Tweet
     attr_reader :screen_name, :text
@@ -8,7 +10,7 @@ module Twitter
     end
 
     def to_s
-      "@#{screen_name}:\n\t#{text}"
+      "@#{screen_name}:\n#{TweetFormatter.format(text)}"
     end
   end
 end

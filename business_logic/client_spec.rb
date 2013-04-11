@@ -1,4 +1,4 @@
-require_relative "./twitter_client"
+require_relative "./client"
 require_relative "./data"
 
 module Twitter

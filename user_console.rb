@@ -6,8 +6,8 @@ module Twitter
   class UserConsole
     def latest_timeline
       parser = Parser.new
-      timeline = Http.user_timeline
-      tweets = parser.get_tweets(timeline.body)
+      timeline = Http.user_timeline.body
+      tweets = parser.get_tweets(timeline)
     end
   end
 end
