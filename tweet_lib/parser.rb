@@ -1,5 +1,5 @@
 require 'json'
-require_relative "./client"
+require_relative "./tweet_factory"
 
 module Twitter
   class Parser
