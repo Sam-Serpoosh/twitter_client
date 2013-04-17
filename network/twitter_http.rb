@@ -35,7 +35,7 @@ module Twitter
       http = Twitter::Network.create_http(address)
       request = Twitter::Network.create_authorized_request(http, address)
       response = Twitter::Network.execute_http(http, request)
-      response
+      response.body
     end
   end
 end

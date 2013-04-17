@@ -9,17 +9,17 @@ module Twitter
     end
 
     def latest_timeline(count_limit = 20)
-      timeline = Http.user_timeline(count_limit).body
+      timeline = Http.user_timeline(count_limit)
       @parser.get_tweets(timeline)
     end
 
     def latest_mentions(count_limit = 20)
-      mentions = Http.mentions_timeline(count_limit).body
+      mentions = Http.mentions_timeline(count_limit)
       @parser.get_tweets(mentions)
     end
 
     def latest_retweets(count_limit = 20)
-      retweets = Http.retweets(count_limit).body
+      retweets = Http.retweets(count_limit)
       @parser.get_tweets(retweets)
     end
   end
