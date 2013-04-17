@@ -1,5 +1,5 @@
 require_relative "./user_console"
-require_relative "./business_logic/data"
+require_relative "./tweet_lib/data"
 
 class Http; end
 

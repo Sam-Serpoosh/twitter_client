@@ -1,5 +1,5 @@
 require_relative "./network/twitter_http"
-require_relative "./business_logic/parser"
+require_relative "./tweet_lib/parser"
 
 
 module Twitter
