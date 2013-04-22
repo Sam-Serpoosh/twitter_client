@@ -15,7 +15,7 @@ module Twitter
         "screen_name" => timeline.screen_name,
         "count" => timeline.count,
         "include_rts" => timeline.include_rts?)
-      Network.fetch_response(timeline.path, query)
+      Network.fetch_response(timeline.api_path, query)
     end
 
     def self.mentions_timeline

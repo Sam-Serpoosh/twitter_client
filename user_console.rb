@@ -39,5 +39,5 @@ module Twitter
   end
 end
 
-# console = Twitter::UserConsole.new
-# Twitter::Format.timeline(console.latest_mentions)
+ console = Twitter::UserConsole.new
+ Twitter::Format.timeline(console.latest_timeline)
