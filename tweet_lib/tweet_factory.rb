@@ -2,9 +2,10 @@ require 'json'
 require_relative "./tweet"
 
 module Twitter
-  class Client
+  class Factory
     def create_tweet(tweet)
-      Tweet.new(tweet["user"]["screen_name"], 
+      Tweet.new(tweet["id"], 
+                tweet["user"]["screen_name"], 
                 tweet["text"])
     end
   end
