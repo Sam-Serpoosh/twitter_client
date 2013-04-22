@@ -11,9 +11,19 @@ module Twitter
                                     Settings::ACCESS_TOKEN_SECRET)
     BASE_URL = "https://api.twitter.com/"
 
+    def self.fetch_response(path, query)
+      address = create_address(path, query)
+      http = create_http(address)
+      request = create_authorized_request(http, address)
+      response = execute_http(http, request)
+      response.body
+    end
+
+    private 
+
     def self.create_address(path, query = nil)
       return URI("#{BASE_URL}#{path}?#{query}") if !query.nil?
-      URI("#{BASE_URL}#{path}")
+        URI("#{BASE_URL}#{path}")
     end
 
     def self.create_query(params)

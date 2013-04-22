@@ -1,41 +1,33 @@
 require_relative "./twitter_network"
+require_relative "../tweet_lib/timeline"
+require_relative "../tweet_lib/mention"
 
 module Twitter
-  module Http
-    def self.verify_user
+  module Lib
+    def self.authenticate
       path = "1.1/account/verify_credentials.json"
-      execute_request(path)
+      Network.fetch_response(path)
     end
 
-    def self.user_timeline(count_limit)
-      path = "1.1/statuses/user_timeline.json"
-      query = Twitter::Network.create_query(
-        "screen_name" => Twitter::Network::SCREEN_NAME,
-        "count" => count_limit,
-        "include_rts" => 1)
-      execute_request(path, query)
+    def self.user_timeline
+      timeline = Timeline.new(Network::SCREEN_NAME, 20)
+      query = Network.create_query(
+        "screen_name" => timeline.screen_name,
+        "count" => timeline.count,
+        "include_rts" => timeline.include_rts?)
+      Network.fetch_response(timeline.path, query)
     end
 
-    def self.mentions_timeline(count_limit)
-      path = "1.1/statuses/mentions_timeline.json"
-      query = Twitter::Network.create_query("count" => count_limit)
-      execute_request(path, query)
+    def self.mentions_timeline
+      mention = Mention.new
+      query = Network.create_query("count" => mention.count)
+      Network.fetch_response(mention.api_path, query)
     end
 
     def self.retweets(count_limit)
       path = "1.1/statuses/retweets_of_me.json"
-      query = Twitter::Network.create_query("count" => count_limit)
-      execute_request(path, query)
-    end
-
-    private 
-
-    def self.execute_request(path, query = nil)
-      address = Twitter::Network.create_address(path, query)
-      http = Twitter::Network.create_http(address)
-      request = Twitter::Network.create_authorized_request(http, address)
-      response = Twitter::Network.execute_http(http, request)
-      response.body
+      query = Network.create_query("count" => count_limit)
+      Network.fetch_response(path, query)
     end
   end
 end
