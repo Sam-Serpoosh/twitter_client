@@ -1,4 +1,4 @@
-require_relative "./timeline"
+require_relative "../tweet/timeline"
 
 module Twitter
   describe Timeline do

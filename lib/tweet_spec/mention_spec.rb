@@ -1,4 +1,4 @@
-require_relative "./mention"
+require_relative "../tweet/mention"
 
 module Twitter
   describe Mention do

@@ -1,4 +1,4 @@
-require_relative "./tweet"
+require_relative "../tweet/tweet"
 
 
 module Twitter

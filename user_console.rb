@@ -1,5 +1,5 @@
-require_relative "./network/twitter_http"
-require_relative "./tweet_lib/parser"
+require_relative "./network/twitter_lib"
+require_relative "./lib/parser"
 
 
 module Twitter
@@ -9,17 +9,17 @@ module Twitter
     end
 
     def latest_timeline
-      timeline = Lib.user_timeline
+      timeline = TwitterLib.user_timeline
       @parser.get_tweets(timeline)
     end
 
     def latest_mentions
-      mentions = Lib.mentions_timeline
+      mentions = TwitterLib.mentions_timeline
       @parser.get_tweets(mentions)
     end
 
     def latest_retweets(count_limit = 20)
-      retweets = Lib.retweets(count_limit)
+      retweets = TwitterLib.retweets(count_limit)
       @parser.get_tweets(retweets)
     end
   end
@@ -39,5 +39,5 @@ module Twitter
   end
 end
 
-# console = Twitter::UserConsole.new
-# Twitter::Format.timeline(console.latest_timeline)
+ console = Twitter::UserConsole.new
+ Twitter::Format.timeline(console.latest_timeline)

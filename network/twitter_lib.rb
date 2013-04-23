@@ -1,9 +1,9 @@
 require_relative "./twitter_network"
-require_relative "../tweet_lib/timeline"
-require_relative "../tweet_lib/mention"
+require_relative "../lib/timeline"
+require_relative "../lib/mention"
 
 module Twitter
-  module Lib
+  module TwitterLib
     def self.authenticate
       path = "1.1/account/verify_credentials.json"
       Network.fetch_response(path)
