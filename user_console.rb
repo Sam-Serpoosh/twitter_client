@@ -1,12 +1,42 @@
 require_relative "./network/twitter_lib"
-require_relative "./lib/parser"
+require_relative "./lib/tweet/parser"
+require_relative "./screen"
 
+
+module Twitter
+  module Commands
+    TIMELINE = "timeline"
+    MENTIONS = "mention"
+    RETWEETS = "rets"
+    EXIT = "exit"
+  end
+end
 
 module Twitter
   class UserConsole
     def initialize
       @parser = Parser.new
     end
+
+    def run
+      command = ARGV[0]
+      tweets = nil
+      case command
+        when Commands::TIMELINE
+          tweets = latest_timeline
+        when Commands::MENTIONS
+          tweets = latest_mentions
+        when Commands::RETWEETS
+          tweets = latest_retweets
+        when Commands::EXIT
+          exit
+        else
+          puts valid_commands_message
+      end
+      Screen.timeline(tweets)
+    end
+
+    private
 
     def latest_timeline
       timeline = TwitterLib.user_timeline
@@ -18,26 +48,24 @@ module Twitter
       @parser.get_tweets(mentions)
     end
 
-    def latest_retweets(count_limit = 20)
-      retweets = TwitterLib.retweets(count_limit)
+    def latest_retweets
+      retweets = TwitterLib.retweets
       @parser.get_tweets(retweets)
     end
-  end
-end
-
-module Twitter
-  class Format
-    BOUNDARY = "-" * 80
-
-    def self.timeline(tweets)
-      tweets.each do |t|
-        puts BOUNDARY 
-        puts t
-        puts BOUNDARY 
-      end
+    
+    def valid_commands_message
+      %Q{
+          Valid commands are:
+            "timeline" --> tweet timeline
+            "mentions" --> your mentions
+            "rets"     --> your retweets
+      }
     end
   end
 end
 
- console = Twitter::UserConsole.new
- Twitter::Format.timeline(console.latest_timeline)
+
+console = Twitter::UserConsole.new
+while true
+  console.run
+end

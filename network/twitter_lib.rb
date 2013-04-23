@@ -1,6 +1,7 @@
 require_relative "./twitter_network"
-require_relative "../lib/timeline"
-require_relative "../lib/mention"
+require_relative "../lib/tweet/timeline"
+require_relative "../lib/tweet/mention"
+require_relative "../lib/tweet/retweet"
 
 module Twitter
   module TwitterLib
@@ -10,7 +11,7 @@ module Twitter
     end
 
     def self.user_timeline
-      timeline = Timeline.new(Network::SCREEN_NAME, 20)
+      timeline = Timeline.new(Network::SCREEN_NAME)
       query = Network.create_query(
         "screen_name" => timeline.screen_name,
         "count" => timeline.count,
@@ -24,10 +25,10 @@ module Twitter
       Network.fetch_response(mention.api_path, query)
     end
 
-    def self.retweets(count_limit)
-      path = "1.1/statuses/retweets_of_me.json"
-      query = Network.create_query("count" => count_limit)
-      Network.fetch_response(path, query)
+    def self.retweets
+      rt = Retweet.new
+      query = Network.create_query("count" => rt.count)
+      Network.fetch_response(rt.api_path, query)
     end
   end
 end
