@@ -22,25 +22,18 @@ module Twitter
       while true
         command = gets.chop
         tweets = execute_command command
-        Screen.write_in_terminal(tweets) if !tweets.nil?
+        break if tweets.nil?
+        Screen.write_in_terminal(tweets) 
+        @last_fetch = tweets
       end
+      open_tweet_file_if_needed(@last_fetch) if !@last_fetch.nil?
     end
 
-    private
-
-    def execute_command(command)
-      case command
-        when Commands::TIMELINE
-          return latest_timeline
-        when Commands::MENTIONS
-          return latest_mentions
-        when Commands::RETWEETS
-          return latest_retweets
-        when Commands::EXIT
-          exit
-        else
-          puts valid_commands_message
-          return nil
+    def open_tweet_file_if_needed(tweets)
+      puts "wanna open tweets file?!(y/n)"
+      answer = gets.chop.downcase
+      if answer == "y" || answer == "yes"
+        Screen.open_in_vim tweets
       end
     end
 
@@ -58,7 +51,25 @@ module Twitter
       retweets = TwitterLib.retweets
       @parser.get_tweets(retweets)
     end
-    
+
+    private
+
+    def execute_command(command)
+      case command
+        when Commands::TIMELINE
+          return latest_timeline
+        when Commands::MENTIONS
+          return latest_mentions
+        when Commands::RETWEETS
+          return latest_retweets
+        when Commands::EXIT
+          return nil
+        else
+          puts valid_commands_message
+          return []
+      end
+    end
+
     def valid_commands_message
       %Q{
           Valid commands are:
@@ -71,4 +82,4 @@ module Twitter
 end
 
 
-Twitter::UserConsole.new.run
+#Twitter::UserConsole.new.run

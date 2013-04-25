@@ -2,9 +2,23 @@ module Twitter
   class Screen
     BOUNDARY = "-" * 80
     END_OF_SCREEN = "#{"*" * 80}\nFINISHED!"
+    DIR = File.join(Dir.home, "DailyTweets")
+    TWEETS_PATH = "#{DIR}/tweets"
 
     def self.write_in_terminal(tweets)
       puts prepare_to_render tweets
+    end
+
+    def self.open_in_vim(tweets)
+      create_tweets_directory
+      File.open(TWEETS_PATH, "w") do |f|
+        f.write(prepare_to_render(tweets))
+      end 
+      system("mvim #{TWEETS_PATH}")
+    end
+
+    def self.create_tweets_directory
+      Dir::mkdir(DIR) if !Dir::exist?(DIR)
     end
 
     private
