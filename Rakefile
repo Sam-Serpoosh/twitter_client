@@ -6,7 +6,8 @@ end
 
 namespace :test do
   task :run_all do
-    exec "rspec --color lib/tweet_spec/*_spec.rb"
+    exec("rspec --color lib/tweet_spec/*_spec.rb && " + 
+         "rspec --color ./*_spec.rb")
   end
 end
 
