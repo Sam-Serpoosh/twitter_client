@@ -19,24 +19,30 @@ module Twitter
     end
 
     def run
-      command = ARGV[0]
-      tweets = nil
+      while true
+        command = gets.chop
+        tweets = execute_command command
+        Screen.write_in_terminal(tweets) if !tweets.nil?
+      end
+    end
+
+    private
+
+    def execute_command(command)
       case command
         when Commands::TIMELINE
-          tweets = latest_timeline
+          return latest_timeline
         when Commands::MENTIONS
-          tweets = latest_mentions
+          return latest_mentions
         when Commands::RETWEETS
-          tweets = latest_retweets
+          return latest_retweets
         when Commands::EXIT
           exit
         else
           puts valid_commands_message
+          return nil
       end
-      Screen.timeline(tweets)
     end
-
-    private
 
     def latest_timeline
       timeline = TwitterLib.user_timeline
@@ -65,7 +71,4 @@ module Twitter
 end
 
 
-console = Twitter::UserConsole.new
-while true
-  console.run
-end
+Twitter::UserConsole.new.run
