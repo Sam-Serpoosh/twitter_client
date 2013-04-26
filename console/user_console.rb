@@ -1,5 +1,5 @@
-require_relative "./network/twitter_lib"
-require_relative "./lib/tweet/parser"
+require_relative "../network/twitter_lib"
+require_relative "../lib/tweet/parser"
 require_relative "./screen"
 
 
@@ -80,6 +80,3 @@ module Twitter
     end
   end
 end
-
-
-#Twitter::UserConsole.new.run

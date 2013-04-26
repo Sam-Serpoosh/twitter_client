@@ -1,5 +1,5 @@
 require_relative "./user_console"
-require_relative "./lib/tweet_spec/data"
+require_relative "../lib/tweet_spec/data"
 
 class TwitterLib; end
 
