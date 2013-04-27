@@ -3,12 +3,11 @@ module Twitter
     attr_reader :screen_name, :cursor, :skip_status, 
                 :include_user_entities
 
-    def initialize(screen_name, cursor = -1, 
-                   skip_status = true, include_user_entities = false)
+    def initialize(screen_name, options = {})
       @screen_name = screen_name
-      @cursor = cursor
-      @skip_status = skip_status
-      @include_user_entities = include_user_entities
+      @cursor = options[:cursor] || -1
+      @skip_status = options[:skip_status] || true
+      @include_user_entities = options[:include_user_entities] || false
     end
 
     def api_path

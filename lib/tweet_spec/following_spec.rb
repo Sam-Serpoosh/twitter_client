@@ -26,7 +26,7 @@ module Twitter
     end
 
     it "can include the user entities" do
-      f = Following.new("masihjesus", -1, true, true)
+      f = Following.new("masihjesus", include_user_entities: true)
       f.include_user_entities.should be_true
     end
   end
