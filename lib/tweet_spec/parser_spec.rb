@@ -35,6 +35,12 @@ module Twitter
         users.last.id.should == 27674040
         users.last.screen_name.should == "keltonlynn"
       end
+
+      it "returns empty when there is no users_data" do
+        friends_cursor = stub(users_data: nil)
+        users = parser.users_from(friends_cursor)
+        users.should be_empty
+      end
     end
   end
 end

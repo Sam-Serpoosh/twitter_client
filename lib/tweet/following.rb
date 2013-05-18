@@ -2,6 +2,7 @@ module Twitter
   class Following
     attr_reader :screen_name, :cursor, :skip_status, 
                 :include_user_entities
+    attr_accessor :query
 
     def initialize(screen_name, options = {})
       @screen_name = screen_name
@@ -11,7 +12,7 @@ module Twitter
     end
 
     def api_path
-      "https://api.twitter.com/1.1/friends/list.json"
+      "1.1/friends/list.json"
     end
   end
 end

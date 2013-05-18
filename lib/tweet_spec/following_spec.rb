@@ -10,7 +10,7 @@ module Twitter
     end
 
     it "knows the api_path for following" do
-      following.api_path.should == "https://api.twitter.com/1.1/friends/list.json"
+      following.api_path.should == "1.1/friends/list.json"
     end
 
     it "sets the cursor to -1 by default" do 

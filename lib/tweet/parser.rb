@@ -26,6 +26,7 @@ module Twitter
     def users_from(friends_cursor)
       users_data = friends_cursor.users_data
       users = []
+      return users if users_data.nil?
       users_data.each do |user_data|
         users << User.new(user_data["id"], user_data["screen_name"])
       end

@@ -25,5 +25,10 @@ module Twitter
       cursor = FriendsCursor.new(1, 0, [])
       cursor.should be_last
     end
+
+    it "returns the next cursor" do
+      cursor = FriendsCursor.new(0, 1, [])
+
+    end
   end
 end
