@@ -17,9 +17,9 @@ module Twitter
       end 
     end
 
-    context "friends_cursor" do
+    context "create_friends_cursor_for" do
       it "parses the friends cursor" do
-        cursor = parser.friends_cursor(friends)
+        cursor = parser.create_friends_cursor_for(friends)
         cursor.next_cursor.should == 1333504313713126852
         cursor.users_data.count.should == 18
         cursor.should_not be_last
@@ -28,7 +28,7 @@ module Twitter
 
     context "friends" do
       it "parses a collection of users" do
-        cursor = parser.friends_cursor(friends)
+        cursor = parser.create_friends_cursor_for(friends)
         users = parser.users_from(cursor)
 
         users.count.should == 18

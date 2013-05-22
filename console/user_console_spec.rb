@@ -9,7 +9,7 @@ module Twitter
 
     it "gets the latest tweets from TwitterLib" do
       TwitterLib.should_receive(:user_timeline) { tweets_data }
-      tweets = subject.latest_timeline
+      tweets = subject.latest_timeline("does not matter here")
       tweets.count.should == 20
     end
 

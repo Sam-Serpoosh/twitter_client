@@ -13,8 +13,8 @@ module Twitter
       following.api_path.should == "1.1/friends/list.json"
     end
 
-    it "sets the cursor to -1 by default" do 
-      following.cursor.should == -1
+    it "sets the next cursor to -1 by default" do 
+      following.next_cursor.should == -1
     end
 
     it "skips the users statuses by default" do
