@@ -13,8 +13,8 @@ module Twitter
       Network.fetch_response(path)
     end
 
-    def self.user_timeline
-      timeline = Timeline.new(Network::SCREEN_NAME)
+    def self.user_timeline(screen_name, count = 20)
+      timeline = Timeline.new(screen_name, count)
       query = Network.create_query(
         "screen_name" => timeline.screen_name,
         "count" => timeline.count,
@@ -34,18 +34,28 @@ module Twitter
       Network.fetch_response(rt.api_path, query)
     end
 
+    def self.friends_latest_tweets
+      friends = friends()
+      tweets = []
+      parser = Parser.new
+      friends.each do |friend|
+        latest_tweet = user_timeline(friend.screen_name, 1)
+        tweets += parser.get_tweets(latest_tweet)
+      end
+      tweets
+    end
+
     def self.friends
       cursor = FriendsCursor.new(0, -1, [])
+      myself = User.new("masihjesus")
       while cursor.last? == false
         following = create_following(cursor)
-        response = Network.fetch_response(following.api_path, following.query)
-        parser = Parser.new
-        user = User.new(nil, Network::SCREEN_NAME)
-        cursor = parser.friends_cursor(response)
-        user.add_friends(parser.users_from(cursor))
-        puts user.friends
-        puts "-" * 60
+        response = Network.fetch_response(following.api_path, 
+                                          following.query)
+        following.extract_and_add_friends_to_user(myself, response)
+        cursor = following.move_to_next_cursor
       end
+      myself.friends
     end
 
     private
@@ -54,12 +64,10 @@ module Twitter
       following = Following.new("masihjesus", cursor: cursor.next_cursor)
       following.query = Network.create_query(
         "screen_name" => following.screen_name, 
-        "cursor" => following.cursor,
+        "cursor" => following.next_cursor,
         "skip_status" => following.skip_status,
         "include_user_entities" => following.include_user_entities)
       following
     end
   end
 end
-
-#puts Twitter::TwitterLib.friends

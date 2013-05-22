@@ -16,11 +16,12 @@ module Twitter
       end
     end
 
-    def friends_cursor(friends_cursor_json)
-      cursor_data = JSON.parse friends_cursor_json
-      FriendsCursor.new(cursor_data["previous_cursor"], 
-                        cursor_data["next_cursor"],
-                        cursor_data["users"])
+    def create_friends_cursor_for(response)
+      friends_cursor = JSON.parse(response)
+      check_error_in_response(friends_cursor)
+      FriendsCursor.new(friends_cursor["previous_cursor"], 
+                        friends_cursor["next_cursor"],
+                        friends_cursor["users"])
     end
 
     def users_from(friends_cursor)
@@ -31,6 +32,14 @@ module Twitter
         users << User.new(user_data["id"], user_data["screen_name"])
       end
       users
+    end
+
+    private
+
+    def check_error_in_response(response)
+      if response.has_key?("errors")
+        puts "No Response Available!"
+      end
     end
   end
 end

@@ -9,7 +9,7 @@ module Twitter
     end
 
     def last?
-      next_cursor == 0
+      next_cursor == 0 || next_cursor.nil?
     end
   end
 end
