@@ -15,59 +15,56 @@ module Twitter
 
     def self.user_timeline(screen_name, count = 20)
       timeline = Timeline.new(screen_name, count)
-      query = Network.create_query(
-        "screen_name" => timeline.screen_name,
-        "count" => timeline.count,
-        "include_rts" => timeline.include_rts?)
-      Network.fetch_response(timeline.api_path, query)
+      response = Network.fetch_response(timeline.api_path, timeline.query)
+      get_tweets response
     end
 
     def self.mentions_timeline
       mention = Mention.new
-      query = Network.create_query("count" => mention.count)
-      Network.fetch_response(mention.api_path, query)
+      response = Network.fetch_response(mention.api_path, mention.query)
+      get_tweets response
     end
 
     def self.retweets
       rt = Retweet.new
-      query = Network.create_query("count" => rt.count)
-      Network.fetch_response(rt.api_path, query)
+      response = Network.fetch_response(rt.api_path, rt.query)
+      get_tweets response
     end
 
     def self.friends_latest_tweets
       friends = friends()
       tweets = []
-      parser = Parser.new
       friends.each do |friend|
-        latest_tweet = user_timeline(friend.screen_name, 1)
-        tweets += parser.get_tweets(latest_tweet)
+        tweets += user_timeline(friend.screen_name, 1)
       end
       tweets
     end
 
+    private
+
+    def self.get_tweets(response)
+      Parser.new.get_tweets response
+    end
+
     def self.friends
-      cursor = FriendsCursor.new(0, -1, [])
+      current_cursor = starting_cursor
       myself = User.new("masihjesus")
-      while cursor.last? == false
-        following = create_following(cursor)
+      while current_cursor.last? == false
+        following = create_following(current_cursor)
         response = Network.fetch_response(following.api_path, 
                                           following.query)
         following.extract_and_add_friends_to_user(myself, response)
-        cursor = following.move_to_next_cursor
+        current_cursor = following.move_to_next_cursor
       end
       myself.friends
     end
 
-    private
+    def self.starting_cursor
+      FriendsCursor.new(0, -1, [])
+    end
 
     def self.create_following(cursor = FriendsCursor.new(0, -1, []))
-      following = Following.new("masihjesus", cursor: cursor.next_cursor)
-      following.query = Network.create_query(
-        "screen_name" => following.screen_name, 
-        "cursor" => following.next_cursor,
-        "skip_status" => following.skip_status,
-        "include_user_entities" => following.include_user_entities)
-      following
+      Following.new("masihjesus", cursor: cursor.next_cursor)
     end
   end
 end

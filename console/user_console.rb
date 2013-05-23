@@ -1,24 +1,9 @@
 require_relative "../network/twitter_lib"
-require_relative "../lib/tweet/parser"
 require_relative "./screen"
-
-
-module Twitter
-  module Commands
-    TIMELINE = "timeline"
-    MENTIONS = "mention"
-    RETWEETS = "rets"
-    FRIENDS = "friends"
-    EXIT = "exit"
-  end
-end
+require_relative "./commands"
 
 module Twitter
   class UserConsole
-    def initialize
-      @parser = Parser.new
-    end
-
     def run
       while true
         command = gets.chop
@@ -38,52 +23,18 @@ module Twitter
       end
     end
 
-    def latest_timeline(screen_name)
-      timeline = TwitterLib.user_timeline(screen_name)
-      @parser.get_tweets(timeline)
-    end
-
-    def friends_latest_tweets
-      latest_tweets = TwitterLib.friends_latest_tweets
-    end
-
-    def latest_mentions
-      mentions = TwitterLib.mentions_timeline
-      @parser.get_tweets(mentions)
-    end
-
-    def latest_retweets
-      retweets = TwitterLib.retweets
-      @parser.get_tweets(retweets)
-    end
-
     private
 
-    def execute_command(command)
-      case command
-        when Commands::TIMELINE
-          latest_timeline("masihjesus")
-        when Commands::MENTIONS
-          latest_mentions
-        when Commands::RETWEETS
-          latest_retweets
-        when Commands::FRIENDS
-          friends_latest_tweets
-        when Commands::EXIT
-          nil
-        else
-          puts valid_commands_message
-          []
-      end
+    def commands
+      [TimelineCommand.new, MentionsCommand.new, 
+       RetweetsCommand.new, FriendsUpdateCommand.new, 
+       ExitCommand.new, NotExistCommand.new]
     end
 
-    def valid_commands_message
-      %Q{
-          Valid commands are:
-            "timeline" --> tweet timeline
-            "mentions" --> your mentions
-            "rets"     --> your retweets
-      }
+    def execute_command(command)
+      commands.each do |cmd|
+        return cmd.execute if cmd.match?(command)
+      end
     end
   end
 end
