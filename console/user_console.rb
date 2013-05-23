@@ -26,9 +26,10 @@ module Twitter
     private
 
     def commands
-      [TimelineCommand.new, MentionsCommand.new, 
-       RetweetsCommand.new, FriendsUpdateCommand.new, 
-       ExitCommand.new, NotExistCommand.new]
+      [AuthenticateCommand.new, TimelineCommand.new, 
+       MentionsCommand.new, RetweetsCommand.new, 
+       FriendsUpdateCommand.new, ExitCommand.new, 
+       NotExistCommand.new]
     end
 
     def execute_command(command)
