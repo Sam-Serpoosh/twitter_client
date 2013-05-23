@@ -6,7 +6,7 @@ module Twitter
     TWEETS_PATH = "#{DIR}/tweets"
 
     def self.write_in_terminal(tweets)
-      puts prepare_to_render tweets
+      puts prepare_to_render(tweets)
     end
 
     def self.open_in_vim(tweets)
