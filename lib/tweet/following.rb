@@ -1,14 +1,16 @@
+require_relative "../../network/twitter_network"
+
 module Twitter
   class Following
     attr_reader :screen_name, :next_cursor, :skip_status, 
-                :include_user_entities
-    attr_accessor :query
+                :include_user_entities, :query
 
     def initialize(screen_name, options = {})
       @screen_name = screen_name
       @next_cursor = options[:cursor] || -1
       @skip_status = options[:skip_status] || true
       @include_user_entities = options[:include_user_entities] || false
+      set_query
     end
 
     def api_path
@@ -24,6 +26,16 @@ module Twitter
 
     def move_to_next_cursor
       @cursor
+    end
+
+    private
+
+    def set_query
+      @query = Network.create_query(
+        "screen_name" => screen_name, 
+        "cursor" => next_cursor,
+        "skip_status" => skip_status,
+        "include_user_entities" => include_user_entities)
     end
   end
 end
