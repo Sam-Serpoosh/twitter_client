@@ -9,6 +9,16 @@ module Twitter
       @twitter_factory = twitter_factory
     end
 
+    def authentication_result(authenticate_response)
+      auth_data = JSON.parse(authenticate_response)
+      if auth_data.has_key?("name") && 
+         !auth_data["name"].nil? &&
+         auth_data["name"] != ""
+        return "Authenticated"
+      end
+      "Not Valid"
+    end
+
     def get_tweets(all_tweets_data)
       tweets = JSON.parse all_tweets_data
       tweets.map do |t|

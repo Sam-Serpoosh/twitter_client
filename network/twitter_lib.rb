@@ -1,4 +1,5 @@
 require_relative "./twitter_network"
+require_relative "../lib/tweet/authenticate"
 require_relative "../lib/tweet/timeline"
 require_relative "../lib/tweet/mention"
 require_relative "../lib/tweet/retweet"
@@ -9,8 +10,9 @@ require_relative "../lib/tweet/friends_cursor"
 module Twitter
   module TwitterLib
     def self.authenticate
-      path = "1.1/account/verify_credentials.json"
-      Network.fetch_response(path)
+      authenticate = Authenticate.new
+      response = Network.fetch_response(authenticate.api_path)
+      Parser.new.authentication_result(response)
     end
 
     def self.user_timeline(screen_name, count = 20)

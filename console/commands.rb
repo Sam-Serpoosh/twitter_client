@@ -1,10 +1,22 @@
 module Twitter
   module Commands
+    AUTHENTICATE = "auth"
     TIMELINE = "timeline"
     MENTIONS = "mention"
     RETWEETS = "rets"
     FRIENDS = "friends"
     EXIT = "exit"
+  end
+
+  class AuthenticateCommand
+    def match?(command)
+      command == Commands::AUTHENTICATE
+    end
+
+    def execute
+      puts TwitterLib.authenticate
+      nil
+    end
   end
 
   class TimelineCommand

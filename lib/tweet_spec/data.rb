@@ -17,5 +17,11 @@ module Twitter
                                    "/friends.data")
       File.open(data_path, "r") { |f| f.read }
     end
+
+    def self.auth_data
+      data_path = File.expand_path(File.dirname(__FILE__) + 
+                                   "/auth_response_sample.data")
+      File.open(data_path, "r") { |f| f.read }
+    end
   end
 end

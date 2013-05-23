@@ -42,5 +42,18 @@ module Twitter
         users.should be_empty
       end
     end
+
+    context "authentication" do
+      let(:auth_response) { Data.auth_data }
+      it "returns ok when authentication is success" do
+        auth_result = parser.authentication_result(auth_response)
+        auth_result.should == "Authenticated"
+      end
+
+      it "returns 'Not Valid' when authentication is failure" do
+        auth_result = parser.authentication_result("{}")
+        auth_result.should == "Not Valid"
+      end
+    end
   end
 end
