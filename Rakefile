@@ -9,7 +9,8 @@ end
 namespace :test do
   task :run do
     exec("rspec --color lib/tweet_spec/*_spec.rb && " + 
-         "rspec --color console/*_spec.rb")
+         "rspec --color console/*_spec.rb && " + 
+				 "rspec --color network/*_spec.rb")
   end
 end
 
