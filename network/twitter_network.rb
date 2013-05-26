@@ -19,11 +19,9 @@ module Twitter
       response.body
     end
 
-    private 
-
     def self.create_address(path, query = nil)
-      return URI("#{BASE_URL}#{path}?#{query}") if !query.nil?
-        URI("#{BASE_URL}#{path}")
+      address = BASE_URL + path
+      query.nil? ? address : "#{address}?#{query}"
     end
 
     def self.create_query(params)

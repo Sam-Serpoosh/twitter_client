@@ -50,15 +50,15 @@ module Twitter
 
     def self.friends
       current_cursor = starting_cursor
-      myself = User.new("masihjesus")
+      user = User.new("masihjesus")
       while current_cursor.last? == false
         following = create_following(current_cursor)
         response = Network.fetch_response(following.api_path, 
                                           following.query)
-        following.extract_and_add_friends_to_user(myself, response)
+        following.extract_and_add_friends_to_user(user, response)
         current_cursor = following.move_to_next_cursor
       end
-      myself.friends
+      user.friends
     end
 
     def self.starting_cursor
