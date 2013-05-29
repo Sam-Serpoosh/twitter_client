@@ -34,15 +34,9 @@ module Twitter
     end
 
     def self.friends_latest_tweets
-      friends = friends()
-      tweets = []
-      friends.each do |friend|
-        tweets += user_timeline(friend.screen_name, 1)
+      friends.each_with_object([]) do |friend, tweets|
+        tweets += user_timeline(friend.screen_name, count: 1)
       end
-      tweets
-#      friends.each_with_object([]) do |friend, tweets|
-#        tweets += user_timeline(friend.screen_name, 1)
-#      end
     end
 
     private
