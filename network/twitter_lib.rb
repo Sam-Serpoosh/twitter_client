@@ -52,7 +52,7 @@ module Twitter
         following = create_following(current_cursor)
         response = Network.fetch_response(following.api_path, 
                                           following.query)
-        following.extract_and_add_friends_to_user(user, response)
+        following.add_friends_to_user(user, response)
         current_cursor = following.move_to_next_cursor
       end
       user.friends

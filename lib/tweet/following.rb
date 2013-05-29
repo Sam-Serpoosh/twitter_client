@@ -17,7 +17,7 @@ module Twitter
       "1.1/friends/list.json"
     end
     
-    def extract_and_add_friends_to_user(user, friends_response)
+    def add_friends_to_user(user, friends_response)
       parser = Parser.new
       @cursor = parser.create_friends_cursor_for(friends_response)
       friends = parser.users(friends_response)
