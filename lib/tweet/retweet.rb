@@ -4,8 +4,9 @@ module Twitter
   class Retweet
     attr_reader :count, :query
 
-    def initialize(count = 20)
-      @count = count
+    def initialize(options = {})
+      @count = options[:count] || 20
+      @network = options[:network] || Network
       set_query
     end
 
@@ -13,10 +14,14 @@ module Twitter
       "1.1/statuses/retweets_of_me.json"
     end
 
+    def fetch_retweets
+      @network.fetch_response(api_path, query)
+    end
+
     private
     
     def set_query
-      @query = Network.create_query("count" => count)
+      @query = @network.create_query("count" => count)
     end
   end
 end

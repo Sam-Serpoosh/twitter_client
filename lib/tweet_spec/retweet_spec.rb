@@ -11,7 +11,21 @@ module Twitter
     end
 
     it "can change the count limit" do
-      Retweet.new(30).count.should == 30
+      Retweet.new(count: 30).count.should == 30
+    end
+
+    context "#network" do
+      before do
+        @network = stub.as_null_object
+        @rets = Retweet.new(network: @network)
+        @api_path = @rets.api_path
+        @query = @rets.query
+      end
+
+      it "calls fetch_response on network" do
+        @network.should_receive(:fetch_response).with(@api_path, @query)
+        @rets.fetch_retweets
+      end
     end
   end
 end

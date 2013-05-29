@@ -21,7 +21,7 @@ module Twitter
     private
     
     def set_query
-      @query = Network.create_query("count" => count)
+      @query = @network.create_query("count" => count)
     end
   end
 end

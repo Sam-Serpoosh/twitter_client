@@ -29,7 +29,7 @@ module Twitter
 
     def self.retweets
       rt = Retweet.new
-      response = Network.fetch_response(rt.api_path, rt.query)
+      response = rt.fetch_retweets
       get_tweets response
     end
 

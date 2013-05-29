@@ -11,5 +11,10 @@ module Twitter
       mentions = TwitterLib.mentions_timeline
       mentions.count.should == 20
     end
+
+    it "gets user retweets" do
+      rets = TwitterLib.retweets
+      rets.count.should == 20
+    end 
   end
 end

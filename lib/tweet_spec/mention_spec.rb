@@ -12,7 +12,7 @@ module Twitter
 
     context "#network" do
       before do
-        @network = stub
+        @network = stub.as_null_object
         @mention = Mention.new(count: 20, network: @network)
         @query = @mention.query
         @api_path = @mention.api_path
