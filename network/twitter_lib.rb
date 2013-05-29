@@ -23,7 +23,7 @@ module Twitter
 
     def self.mentions_timeline
       mention = Mention.new
-      response = Network.fetch_response(mention.api_path, mention.query)
+      response = mention.fetch_mentions
       get_tweets response
     end
 

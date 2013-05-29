@@ -6,5 +6,10 @@ module Twitter
       timeline = TwitterLib.user_timeline("masihjesus")
       timeline.count.should == 20
     end
+
+    it "gets user mentions" do
+      mentions = TwitterLib.mentions_timeline
+      mentions.count.should == 20
+    end
   end
 end
