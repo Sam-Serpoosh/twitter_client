@@ -7,10 +7,14 @@ namespace :twitter do
 end
 
 namespace :test do
-  task :run do
+  task :unit do
     exec("rspec --color lib/tweet_spec/*_spec.rb && " + 
          "rspec --color console/*_spec.rb && " + 
 				 "rspec --color network/*_spec.rb")
+  end
+
+  task :integ do
+    exec("rspec --color integration_spec/*_spec.rb")
   end
 end
 

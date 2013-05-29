@@ -21,7 +21,7 @@ module Twitter
 
     def self.create_address(path, query = nil)
       address = BASE_URL + path
-      query.nil? ? address : "#{address}?#{query}"
+      query.nil? ? URI(address) : URI("#{address}?#{query}")
     end
 
     def self.create_query(params)

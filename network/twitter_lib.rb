@@ -16,8 +16,8 @@ module Twitter
     end
 
     def self.user_timeline(screen_name, count = 20)
-      timeline = Timeline.new(screen_name, count)
-      response = Network.fetch_response(timeline.api_path, timeline.query)
+      timeline = Timeline.new(screen_name, count: count)
+			response = timeline.fetch_response
       get_tweets response
     end
 

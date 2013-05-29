@@ -23,5 +23,11 @@ module Twitter
                                    "/auth_response_sample.data")
       File.open(data_path, "r") { |f| f.read }
     end
+    
+    def self.one_friend
+      data_path = File.expand_path(File.dirname(__FILE__) + 
+                                   "/one_friend.json")
+      File.open(data_path, "r") { |f| f.read }
+    end
   end
 end
