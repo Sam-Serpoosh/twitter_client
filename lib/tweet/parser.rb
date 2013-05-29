@@ -30,12 +30,12 @@ module Twitter
       friends_cursor = JSON.parse(response)
       check_error_in_response(friends_cursor)
       FriendsCursor.new(friends_cursor["previous_cursor"], 
-                        friends_cursor["next_cursor"],
-                        friends_cursor["users"])
+                        friends_cursor["next_cursor"])
     end
 
-    def users_from(friends_cursor)
-      users_data = friends_cursor.users_data
+    def users(friends_json)
+      friends_data = JSON.parse(friends_json)
+      users_data = friends_data["users"]
       users = []
       return users if users_data.nil?
       users_data.each do |user_data|

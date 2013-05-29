@@ -1,11 +1,10 @@
 module Twitter
   class FriendsCursor
-    attr_reader :previous_cursor, :next_cursor, :users_data
+    attr_reader :previous_cursor, :next_cursor
 
-    def initialize(previous_cursor, next_cursor, users_data)
+    def initialize(previous_cursor, next_cursor)
       @previous_cursor = previous_cursor
       @next_cursor = next_cursor
-      @users_data = users_data
     end
 
     def last?

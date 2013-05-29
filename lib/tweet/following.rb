@@ -20,7 +20,7 @@ module Twitter
     def extract_and_add_friends_to_user(user, friends_response)
       parser = Parser.new
       @cursor = parser.create_friends_cursor_for(friends_response)
-      friends = parser.users_from(@cursor)
+      friends = parser.users(friends_response)
       user.add_friends(friends)
     end
 

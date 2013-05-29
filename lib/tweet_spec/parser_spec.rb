@@ -21,24 +21,27 @@ module Twitter
       it "parses the friends cursor" do
         cursor = parser.create_friends_cursor_for(friends)
         cursor.next_cursor.should == 1333504313713126852
-        cursor.users_data.count.should == 18
         cursor.should_not be_last
       end
     end
 
     context "friends" do
       it "parses a collection of users" do
-        cursor = parser.create_friends_cursor_for(friends)
-        users = parser.users_from(cursor)
+        users = parser.users(friends)
 
         users.count.should == 18
         users.last.id.should == 27674040
         users.last.screen_name.should == "keltonlynn"
       end
 
-      it "returns empty when there is no users_data" do
-        friends_cursor = stub(users_data: nil)
-        users = parser.users_from(friends_cursor)
+      it "parses users directly from json" do
+        users = parser.users(Data.one_friend)
+        users.count.should == 1
+        users.first.screen_name.should == "froginthevalley"
+      end
+
+      it "returns empty when there is no users data" do
+        users = parser.users("{}")
         users.should be_empty
       end
     end

@@ -1,7 +1,6 @@
 require_relative "../tweet/following"
 
 module Twitter
-  # change the ctor to the hash style!
   describe Following do
     let(:following) { Following.new("masihjesus") }
 

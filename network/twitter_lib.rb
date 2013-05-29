@@ -40,6 +40,9 @@ module Twitter
         tweets += user_timeline(friend.screen_name, 1)
       end
       tweets
+#      friends.each_with_object([]) do |friend, tweets|
+#        tweets += user_timeline(friend.screen_name, 1)
+#      end
     end
 
     private
@@ -62,10 +65,10 @@ module Twitter
     end
 
     def self.starting_cursor
-      FriendsCursor.new(0, -1, [])
+      FriendsCursor.new(0, -1)
     end
 
-    def self.create_following(cursor = FriendsCursor.new(0, -1, []))
+    def self.create_following(cursor = FriendsCursor.new(0, -1))
       Following.new("masihjesus", cursor: cursor.next_cursor)
     end
   end
