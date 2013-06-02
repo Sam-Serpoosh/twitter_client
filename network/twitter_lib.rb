@@ -34,9 +34,11 @@ module Twitter
     end
 
     def self.friends_latest_tweets
-      friends.each_with_object([]) do |friend, tweets|
-        tweets += user_timeline(friend.screen_name, count: 1)
+      tweets = []
+      friends.each do |friend|
+        tweets += user_timeline(friend.screen_name, 1)
       end
+      tweets
     end
 
     private
@@ -48,22 +50,22 @@ module Twitter
     def self.friends
       current_cursor = starting_cursor
       user = User.new("masihjesus")
-      while current_cursor.last? == false
+      while current_cursor.has_next?
         following = create_following(current_cursor)
         response = Network.fetch_response(following.api_path, 
                                           following.query)
         following.add_friends_to_user(user, response)
-        current_cursor = following.move_to_next_cursor
+        current_cursor = following.next_cursor
       end
       user.friends
     end
 
     def self.starting_cursor
-      FriendsCursor.new(0, -1)
+      Cursor.new(0, -1)
     end
 
-    def self.create_following(cursor = FriendsCursor.new(0, -1))
-      Following.new("masihjesus", cursor: cursor.next_cursor)
+    def self.create_following(cursor = Cursor.new(0, -1))
+      Following.new("masihjesus", cursor_value: cursor.next_cursor)
     end
   end
 end

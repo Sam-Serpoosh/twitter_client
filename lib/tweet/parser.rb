@@ -26,14 +26,14 @@ module Twitter
       end
     end
 
-    def create_friends_cursor_for(response)
+    def create_cursor_for(response)
       friends_cursor = JSON.parse(response)
       check_error_in_response(friends_cursor)
-      FriendsCursor.new(friends_cursor["previous_cursor"], 
+      Cursor.new(friends_cursor["previous_cursor"], 
                         friends_cursor["next_cursor"])
     end
 
-    def users(friends_json)
+    def users_from(friends_json)
       friends_data = JSON.parse(friends_json)
       users_data = friends_data["users"]
       users = []

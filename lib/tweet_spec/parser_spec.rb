@@ -17,17 +17,17 @@ module Twitter
       end 
     end
 
-    context "create_friends_cursor_for" do
+    context "create_cursor_for" do
       it "parses the friends cursor" do
-        cursor = parser.create_friends_cursor_for(friends)
+        cursor = parser.create_cursor_for(friends)
         cursor.next_cursor.should == 1333504313713126852
-        cursor.should_not be_last
+        cursor.has_next?.should be_true
       end
     end
 
     context "friends" do
       it "parses a collection of users" do
-        users = parser.users(friends)
+        users = parser.users_from(friends)
 
         users.count.should == 18
         users.last.id.should == 27674040
@@ -35,13 +35,13 @@ module Twitter
       end
 
       it "parses users directly from json" do
-        users = parser.users(Data.one_friend)
+        users = parser.users_from(Data.one_friend)
         users.count.should == 1
         users.first.screen_name.should == "froginthevalley"
       end
 
       it "returns empty when there is no users data" do
-        users = parser.users("{}")
+        users = parser.users_from("{}")
         users.should be_empty
       end
     end

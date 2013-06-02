@@ -2,12 +2,12 @@ require_relative "../../network/twitter_network"
 
 module Twitter
   class Following
-    attr_reader :screen_name, :next_cursor, :skip_status, 
+    attr_reader :screen_name, :next_cursor_value, :skip_status, 
                 :include_user_entities, :query
 
     def initialize(screen_name, options = {})
       @screen_name = screen_name
-      @next_cursor = options[:cursor] || -1
+      @next_cursor_value = options[:cursor_value] || -1
       @skip_status = options[:skip_status] || true
       @include_user_entities = options[:include_user_entities] || false
       set_query
@@ -19,12 +19,12 @@ module Twitter
     
     def add_friends_to_user(user, friends_response)
       parser = Parser.new
-      @cursor = parser.create_friends_cursor_for(friends_response)
-      friends = parser.users(friends_response)
+      @cursor = parser.create_cursor_for(friends_response)
+      friends = parser.users_from(friends_response)
       user.add_friends(friends)
     end
 
-    def move_to_next_cursor
+    def next_cursor
       @cursor
     end
 
@@ -33,7 +33,7 @@ module Twitter
     def set_query
       @query = Network.create_query(
         "screen_name" => screen_name, 
-        "cursor" => next_cursor,
+        "cursor" => next_cursor_value,
         "skip_status" => skip_status,
         "include_user_entities" => include_user_entities)
     end

@@ -13,7 +13,7 @@ module Twitter
     end
 
     it "sets the next cursor to -1 by default" do 
-      following.next_cursor.should == -1
+      following.next_cursor_value.should == -1
     end
 
     it "skips the users statuses by default" do
