@@ -1,4 +1,4 @@
-require_relative "../../network/twitter_network"
+require_relative "../network/twitter_network"
 
 module Twitter
   class Retweet

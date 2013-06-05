@@ -1,12 +1,12 @@
 require_relative "./twitter_network"
 require_relative "./settings"
-require_relative "../lib/tweet/authenticate"
-require_relative "../lib/tweet/timeline"
-require_relative "../lib/tweet/mention"
-require_relative "../lib/tweet/retweet"
-require_relative "../lib/tweet/parser"
-require_relative "../lib/tweet/following"
-require_relative "../lib/tweet/cursor"
+require_relative "../tweet/authenticate"
+require_relative "../tweet/timeline"
+require_relative "../tweet/mention"
+require_relative "../tweet/retweet"
+require_relative "../tweet/parser"
+require_relative "../tweet/following"
+require_relative "../tweet/cursor"
 
 module Twitter
   module TwitterLib

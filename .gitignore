@@ -1,6 +1,5 @@
 *.swp
 *.swo
 settings.rb
-business_logic/*.data
 .rspec
 TODO

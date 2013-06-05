@@ -1,4 +1,4 @@
-require_relative "../tweet/tweet_formatter"
+require_relative "../../lib/tweet/tweet_formatter"
 
 module Twitter
   describe TweetFormatter do

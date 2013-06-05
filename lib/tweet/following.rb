@@ -1,4 +1,4 @@
-require_relative "../../network/twitter_network"
+require_relative "../network/twitter_network"
 require_relative "./cursor"
 require_relative "./timeline"
 require_relative "./parser"

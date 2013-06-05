@@ -1,4 +1,4 @@
-require_relative "../tweet/cursor"
+require_relative "../../lib/tweet/cursor"
 
 module Twitter
   describe Cursor do

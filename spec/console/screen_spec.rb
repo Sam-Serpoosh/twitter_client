@@ -1,4 +1,4 @@
-require_relative "./screen"
+require_relative "../../lib/console/screen"
 
 module Twitter
   describe Screen do

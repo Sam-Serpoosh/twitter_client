@@ -1,4 +1,4 @@
-require_relative "../tweet/user"
+require_relative "../../lib/tweet/user"
 
 module Twitter
   describe User do

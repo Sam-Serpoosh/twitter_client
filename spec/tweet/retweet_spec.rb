@@ -1,4 +1,4 @@
-require_relative "../tweet/retweet"
+require_relative "../../lib/tweet/retweet"
 
 module Twitter
   describe Retweet do

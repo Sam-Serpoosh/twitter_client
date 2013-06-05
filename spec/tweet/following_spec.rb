@@ -1,4 +1,4 @@
-require_relative "../tweet/following"
+require_relative "../../lib/tweet/following"
 require_relative "./data"
 
 module Twitter

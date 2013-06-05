@@ -1,4 +1,4 @@
-require_relative "./twitter_network"
+require_relative "../../lib/network/twitter_network"
 
 module Twitter
   describe Network do
