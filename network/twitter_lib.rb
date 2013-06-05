@@ -1,4 +1,5 @@
 require_relative "./twitter_network"
+require_relative "./settings"
 require_relative "../lib/tweet/authenticate"
 require_relative "../lib/tweet/timeline"
 require_relative "../lib/tweet/mention"
@@ -17,7 +18,7 @@ module Twitter
 
     def self.user_timeline(screen_name, count = 20)
       timeline = Timeline.new(screen_name, count: count)
-			response = timeline.fetch_response
+			response = timeline.fetch_timeline
       get_tweets response
     end
 
@@ -34,7 +35,7 @@ module Twitter
     end
 
     def self.friends_latest_tweets
-      following = Following.new("masihjesus")
+      following = Following.new(Settings::SCREEN_NAME)
       following.friends_latest_tweets
     end
 

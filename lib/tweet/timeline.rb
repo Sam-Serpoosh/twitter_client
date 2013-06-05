@@ -19,7 +19,7 @@ module Twitter
       "1.1/statuses/user_timeline.json"
     end
 
-    def fetch_response
+    def fetch_timeline
       @network.fetch_response(api_path, query)
     end
 

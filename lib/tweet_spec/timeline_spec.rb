@@ -19,7 +19,7 @@ module Twitter
       timeline.should be_include_rts
     end
 
-    context "#fetch_response" do
+    context "#fetch_timeline" do
       it "calls fetch_response on Network" do
         network = stub.as_null_object
         timeline = Timeline.new("masihjesus", network: network)
@@ -27,7 +27,7 @@ module Twitter
         query = timeline.query
         network.should_receive(:fetch_response).with(api_path, query)
 
-        timeline.fetch_response
+        timeline.fetch_timeline
       end
     end
   end
