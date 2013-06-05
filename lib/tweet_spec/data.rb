@@ -14,7 +14,7 @@ module Twitter
 
     def self.friends
       data_path = File.expand_path(File.dirname(__FILE__) + 
-                                   "/friends.data")
+                                   "/friends.json")
       File.open(data_path, "r") { |f| f.read }
     end
 
@@ -27,6 +27,12 @@ module Twitter
     def self.one_friend
       data_path = File.expand_path(File.dirname(__FILE__) + 
                                    "/one_friend.json")
+      File.open(data_path, "r") { |f| f.read }
+    end
+
+    def self.last_friend
+      data_path = File.expand_path(File.dirname(__FILE__) + 
+                                   "/last_friend.json")
       File.open(data_path, "r") { |f| f.read }
     end
   end

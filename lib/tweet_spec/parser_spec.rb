@@ -18,9 +18,9 @@ module Twitter
     end
 
     context "create_cursor_for" do
-      it "parses the friends cursor" do
+      it "parses the cursor" do
         cursor = parser.create_cursor_for(friends)
-        cursor.next_cursor.should == 1333504313713126852
+        cursor.next_cursor.should == 1421369440215956700
         cursor.has_next?.should be_true
       end
     end
@@ -29,15 +29,15 @@ module Twitter
       it "parses a collection of users" do
         users = parser.users_from(friends)
 
-        users.count.should == 18
-        users.last.id.should == 27674040
-        users.last.screen_name.should == "keltonlynn"
+        users.count.should == 20
+        users.last.id.should == 588743
+        users.last.screen_name.should == "Bob"
       end
 
       it "parses users directly from json" do
         users = parser.users_from(Data.one_friend)
         users.count.should == 1
-        users.first.screen_name.should == "froginthevalley"
+        users.first.screen_name.should == "Bob"
       end
 
       it "returns empty when there is no users data" do

@@ -1,7 +1,7 @@
 require 'json'
 require_relative "./tweet_factory"
 require_relative "./user"
-require_relative "./friends_cursor"
+require_relative "./cursor"
 
 module Twitter
   class Parser
@@ -21,16 +21,21 @@ module Twitter
 
     def get_tweets(all_tweets_data)
       tweets = JSON.parse all_tweets_data
-      tweets.map do |t|
-        @twitter_factory.create_tweet(t)
+      if any_error?(tweets)
+        puts "No Response Available!"
+        [] #TODO: get rid of this
+      else
+        tweets.map do |t|
+          @twitter_factory.create_tweet(t)
+        end
       end
     end
 
     def create_cursor_for(response)
-      friends_cursor = JSON.parse(response)
-      check_error_in_response(friends_cursor)
-      Cursor.new(friends_cursor["previous_cursor"], 
-                        friends_cursor["next_cursor"])
+      friends_response = JSON.parse(response)
+      check_error_in_response(friends_response)
+      Cursor.new(friends_response["previous_cursor"], 
+                 friends_response["next_cursor"])
     end
 
     def users_from(friends_json)
@@ -45,6 +50,10 @@ module Twitter
     end
 
     private
+
+    def any_error?(response)
+      response.is_a?(Hash) && response.has_key?("errors")
+    end
 
     def check_error_in_response(response)
       if response.has_key?("errors")
