@@ -46,7 +46,7 @@ module Twitter
 
     def user_timeline(screen_name, count = 1)
       timeline = Timeline.new(screen_name, count: count)
-			response = timeline.fetch_response
+			response = timeline.fetch_timeline
       @parser.get_tweets response
     end
 
