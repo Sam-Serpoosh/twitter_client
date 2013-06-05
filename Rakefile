@@ -1,4 +1,6 @@
-require_relative "console/user_console"
+require 'rake/testtask'
+require 'rspec/core/rake_task'
+require_relative 'lib/console/user_console'
 
 namespace :twitter do
   task :console do
@@ -7,15 +9,19 @@ namespace :twitter do
 end
 
 namespace :test do
-  task :unit do
-    exec("rspec --color lib/tweet_spec/*_spec.rb && " + 
-         "rspec --color console/*_spec.rb && " + 
-				 "rspec --color network/*_spec.rb")
+  RSpec::Core::RakeTask.new(:unit) do |task|
+    file_list = FileList["spec/**/*_spec.rb"]
+    file_list = file_list.exclude("spec/integration_spec/*.rb")
+    task.pattern = file_list
   end
 
-  task :integ do
-    exec("rspec --color integration_spec/*_spec.rb")
+  RSpec::Core::RakeTask.new(:integ) do |task|
+    task.pattern = FileList["spec/integration_spec/*.rb"]
   end
 end
 
+desc "Run tests"
+task :tests => ["test:unit", "test:integ"]
+
+desc "Run What's Up?"
 task :default => "twitter:console"
