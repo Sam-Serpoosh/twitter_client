@@ -64,6 +64,26 @@ module Twitter
 
         following.next_cursor.has_next?.should be_false
       end
+
+      it "fetches the latest tweets of friends" do
+        following = StubFollowing.new("masihjesus", network: stub.as_null_object)
+        tweets = following.friends_latest_tweets
+        tweets.first.text.should == "lorem ipsum"
+        tweets.last.text.should == "dollar amet"
+      end
+    end
+  end
+end
+
+module Twitter
+  class StubFollowing < Following
+    def friends
+      [User.new("Bob"), User.new("Alice")]
+    end
+
+    def user_timeline(screen_name, count)
+      [Tweet.new(1, "Bob", "lorem ipsum"), 
+       Tweet.new(2, "Alice", "dollar amet")]
     end
   end
 end

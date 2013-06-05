@@ -1,5 +1,0 @@
-fetch the friends from API
-create a result object for it (we need the next_cursor value)
-also parse the users for the current result
-move to the next cursor
-repeat until the next_cursor doesn't exist
