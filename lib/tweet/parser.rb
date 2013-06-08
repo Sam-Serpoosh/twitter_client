@@ -33,9 +33,12 @@ module Twitter
 
     def create_cursor_for(response)
       friends_response = JSON.parse(response)
-      check_error_in_response(friends_response)
-      Cursor.new(friends_response["previous_cursor"], 
-                 friends_response["next_cursor"])
+      if any_error?(friends_response)
+        Cursor.new(0, 0) #last cursor
+      else
+        Cursor.new(friends_response["previous_cursor"], 
+                   friends_response["next_cursor"])
+      end
     end
 
     def users_from(friends_json)
@@ -53,12 +56,6 @@ module Twitter
 
     def any_error?(response)
       response.is_a?(Hash) && response.has_key?("errors")
-    end
-
-    def check_error_in_response(response)
-      if response.has_key?("errors")
-        puts "No Response Available!"
-      end
     end
   end
 end

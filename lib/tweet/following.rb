@@ -21,7 +21,7 @@ module Twitter
     def friends_latest_tweets
       tweets = []
       friends.each do |friend|
-        tweets += user_timeline(friend.screen_name, 1)
+        tweets += user_timeline(friend.screen_name)
       end
       tweets
     end

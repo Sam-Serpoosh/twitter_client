@@ -16,5 +16,15 @@ module Twitter
       rets = TwitterLib.retweets
       rets.count.should == 20
     end 
+
+    it "gets friends list" do
+      friends = TwitterLib.friends
+      if friends.count > 0
+        friends.count.should >= 130
+        friends.select do |user|
+          user.screen_name == "bahadorn"
+        end.count.should == 1
+      end
+    end
   end
 end

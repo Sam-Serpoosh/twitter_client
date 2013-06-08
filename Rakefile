@@ -18,10 +18,11 @@ namespace :test do
   RSpec::Core::RakeTask.new(:integ) do |task|
     task.pattern = FileList["spec/integration_spec/*.rb"]
   end
+
+	desc "Run unit and integration tests"
+	task :all => ["unit", "integ"]
 end
 
-desc "Run tests"
-task :tests => ["test:unit", "test:integ"]
 
 desc "Run What's Up?"
 task :default => "twitter:console"

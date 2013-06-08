@@ -23,6 +23,26 @@ module Twitter
         cursor.next_cursor.should == 1421369440215956700
         cursor.has_next?.should be_true
       end
+
+      it "returns 'last cursor' if there is any error" do
+        friends_response = %Q{ { "errors": "somethign went wrong" } }
+        cursor = parser.create_cursor_for(friends_response)
+        cursor.has_next?.should be_false
+      end
+    end
+
+    context "#any_error?" do
+      it "knows when there is error in response" do
+        response = { "errors" => "something went wrong" }
+        parser.send("any_error?", response).should be_true
+        #TODO: send to private method?! #icky
+      end
+
+      it "won't detect errors if resonse is not hash" do
+        response = "bla bla"
+        parser.send("any_error?", response).should be_false
+        #TODO: send to private method?! #icky
+      end
     end
 
     context "friends" do

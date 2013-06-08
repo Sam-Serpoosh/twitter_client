@@ -34,6 +34,11 @@ module Twitter
       get_tweets response
     end
 
+    def self.friends
+      following = Following.new(Settings::SCREEN_NAME)
+      following.friends
+    end
+
     def self.friends_latest_tweets
       following = Following.new(Settings::SCREEN_NAME)
       following.friends_latest_tweets

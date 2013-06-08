@@ -81,7 +81,7 @@ module Twitter
       [User.new("Bob"), User.new("Alice")]
     end
 
-    def user_timeline(screen_name, count)
+    def user_timeline(screen_name)
       [Tweet.new(1, "Bob", "lorem ipsum"), 
        Tweet.new(2, "Alice", "dollar amet")]
     end
