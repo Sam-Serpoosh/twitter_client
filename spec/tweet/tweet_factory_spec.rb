@@ -12,6 +12,13 @@ module Twitter
       end
     end
 
+    context "#empty_tweet" do
+      it "creates empty tweet" do
+        t = subject.create_empty_tweet
+        t.should be_empty
+      end
+    end
+
     def one_tweet_data
       # read from test file which stored a sample
       JSON.parse Data.one_tweet

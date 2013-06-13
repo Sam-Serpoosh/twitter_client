@@ -18,5 +18,10 @@ module Twitter
       t = Tweet.new(1, "masihjesus", multiline_text)
       t.line_count.should == 10
     end
+
+    it "knows when it's empty" do
+      t = Tweet.new(1, "masihjesus", "")
+      t.should be_empty
+    end
   end
 end

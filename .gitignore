@@ -3,3 +3,5 @@
 settings.rb
 .rspec
 TODO
+tags
+lib/log

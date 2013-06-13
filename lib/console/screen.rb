@@ -26,6 +26,7 @@ module Twitter
     def self.prepare_to_render(tweets)
       result = ""
       tweets.each do |t|
+        next if t.empty?
         result += BOUNDARY + "\n"
         result += t.to_s + "\n"
         result += BOUNDARY + "\n"

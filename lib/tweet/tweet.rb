@@ -9,5 +9,9 @@ module Twitter
     def line_count
       text.split("\n").count
     end
+
+    def empty?
+      text.length == 0
+    end
   end
 end

@@ -22,8 +22,7 @@ module Twitter
     def get_tweets(all_tweets_data)
       tweets = JSON.parse all_tweets_data
       if any_error?(tweets)
-        puts "No Response Available!"
-        [] #TODO: get rid of this
+        [@twitter_factory.create_empty_tweet]
       else
         tweets.map do |t|
           @twitter_factory.create_tweet(t)
@@ -51,8 +50,6 @@ module Twitter
       end
       users
     end
-
-    private
 
     def any_error?(response)
       response.is_a?(Hash) && response.has_key?("errors")

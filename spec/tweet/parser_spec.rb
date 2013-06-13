@@ -15,6 +15,12 @@ module Twitter
         tweets.first.screen_name.should == "masihjesus"
         tweets.first.text.should include "little bit"
       end 
+
+      it "returns empty tweet when there's error" do
+        tweet_response = %Q{ { "errors": "something went wrong" } }
+        tweets = parser.get_tweets(tweet_response)
+        tweets.first.should be_empty
+      end
     end
 
     context "create_cursor_for" do
@@ -34,14 +40,12 @@ module Twitter
     context "#any_error?" do
       it "knows when there is error in response" do
         response = { "errors" => "something went wrong" }
-        parser.send("any_error?", response).should be_true
-        #TODO: send to private method?! #icky
+        parser.any_error?(response).should be_true
       end
 
       it "won't detect errors if resonse is not hash" do
         response = "bla bla"
-        parser.send("any_error?", response).should be_false
-        #TODO: send to private method?! #icky
+        parser.any_error?(response).should be_false
       end
     end
 
