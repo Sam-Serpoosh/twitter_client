@@ -1,5 +1,5 @@
 module Twitter
-  class Screen
+  class TweetRenderer
     BOUNDARY = "-" * 80
     END_OF_SCREEN = "#{"*" * 80}\nFINISHED!"
     DIR = File.join(Dir.home, "DailyTweets")

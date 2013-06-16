@@ -1,5 +1,5 @@
 require_relative "../network/twitter_lib"
-require_relative "./screen"
+require_relative "./tweet_renderer"
 require_relative "./commands"
 
 module Twitter
@@ -9,7 +9,7 @@ module Twitter
         command = gets.chop
         tweets = execute_command command
         break if tweets.nil?
-        Screen.write_in_terminal(tweets) 
+        TweetRenderer.write_in_terminal(tweets) 
         @last_fetch = tweets
       end
       open_tweets_file_if_needed(@last_fetch) if !@last_fetch.nil?
@@ -19,7 +19,7 @@ module Twitter
       puts "wanna open tweets file?!(y/n)"
       answer = gets.chop.downcase
       if answer == "y" || answer == "yes"
-        Screen.open_in_vim tweets
+        TweetRenderer.open_in_vim tweets
       end
     end
 
