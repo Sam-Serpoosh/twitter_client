@@ -24,7 +24,9 @@ module Twitter
         friends.select do |user|
           user.screen_name == "bahadorn"
         end.count.should == 1
+        puts "Friends was tested properly!"
       end
+      puts "Exceeded limit, friends was not tested!"
     end
   end
 end
