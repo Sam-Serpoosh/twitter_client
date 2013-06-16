@@ -25,8 +25,9 @@ module Twitter
           user.screen_name == "bahadorn"
         end.count.should == 1
         puts "Friends was tested properly!"
-      end
-      puts "Exceeded limit, friends was not tested!"
+			else
+				puts "Exceeded limit, friends was not tested!"
+			end
     end
   end
 end
