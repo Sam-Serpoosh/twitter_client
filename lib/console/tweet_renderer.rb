@@ -1,7 +1,9 @@
+require 'colorize'
+
 module Twitter
   class TweetRenderer
-    BOUNDARY = "-" * 80
-    END_OF_SCREEN = "#{"*" * 80}\nFINISHED!"
+    BOUNDARY = ("-" * 80).red
+    END_OF_SCREEN = "#{"*" * 80}\nFINISHED!".yellow
     DIR = File.join(Dir.home, "DailyTweets")
     TWEETS_PATH = "#{DIR}/tweets"
 

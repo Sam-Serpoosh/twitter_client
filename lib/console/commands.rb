@@ -87,6 +87,7 @@ module Twitter
             "timeline" --> tweet timeline
             "mentions" --> your mentions
             "rets"     --> your retweets
+            "friends"  --> last tweet of your friends
       }
     end
   end

@@ -10,7 +10,7 @@ module Twitter
     it "formats itself for to_s" do
       long_text = "a" * 140
       t = Tweet.new(1, "masihjesus", long_text)
-      t.to_s.should == "@#{t.screen_name}:\n#{long_text}"
+      t.to_s.should == "@#{t.screen_name.green}:\n#{long_text}"
     end
 
     it "knows the number of its lines" do
