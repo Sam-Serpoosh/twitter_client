@@ -2,7 +2,6 @@ require_relative "../network/twitter_network"
 require_relative "./cursor"
 require_relative "./timeline"
 require_relative "./parser"
-require_relative "./tweet_logger"
 
 module Twitter
   class Following
@@ -17,7 +16,6 @@ module Twitter
       @network = options[:network] || Network
       @parser = Parser.new
       set_query(@next_cursor_value)
-      @logger = Logger.new
     end
 
     def friends_latest_tweets
@@ -34,7 +32,6 @@ module Twitter
       while current_cursor.has_next?
         set_query(current_cursor.next_cursor)
         response = @network.fetch_response(api_path, query)
-        @logger.log_response(response)
         add_friends_and_move_to_next_cursor(user, response)
         current_cursor = next_cursor
       end

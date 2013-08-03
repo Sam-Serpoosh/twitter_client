@@ -1,5 +1,6 @@
 require "rubygems"
 require "oauth"
+require_relative "../tweet/tweet_logger"
 require_relative "./settings"
 
 module Twitter
@@ -17,6 +18,9 @@ module Twitter
       request = create_authorized_request(http, address)
       response = execute_http(http, request)
       response.body
+    rescue => e
+      Twitter::Logger.new.log_exception(e.message)
+      error_message(e.message)
     end
 
     def self.create_address(path, query = nil)
@@ -44,6 +48,10 @@ module Twitter
     def self.execute_http(http, request)
       http.start
       http.request(request)
+    end
+
+    def self.error_message(message)
+      "{errors: #{message}}"
     end
   end
 end
