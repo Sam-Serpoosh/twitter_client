@@ -19,7 +19,7 @@ module Twitter
       response = execute_http(http, request)
       response.body
     rescue => e
-      Twitter::Logger.new.log_exception(e.message)
+      Twitter::Logger.new.log_exception(e)
       error_message(e.message)
     end
 

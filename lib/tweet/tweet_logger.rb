@@ -18,8 +18,9 @@ module Twitter
     end
 
     def log_exception(exception)
-      log_text = "ERROR:\n"
-      log_text += "#{exception.message}\n"
+      log_text = "ERROR: #{exception.class.name}\n"
+      log_text += "MESSAGE: #{exception.message}\n"
+			log_text += "BACKTRACE:\n#{exception.backtrace}"
       log_text += "ERROR-END"
       @logger.error(log_text)
     end
